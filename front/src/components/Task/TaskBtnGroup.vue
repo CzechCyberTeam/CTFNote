@@ -20,7 +20,7 @@
         :title="onItTitle"
         :icon="onItIcon"
         :color="onItColor"
-        @click="updateOnIt(!onIt)"
+        @click="shouldWorkAssign ? workAssignTask(task) : updateOnIt(!onIt)"
       />
       <q-btn
         round
@@ -75,6 +75,7 @@ export default defineComponent({
       deleteTask: ctfnote.tasks.useDeleteTaskPopup(),
       editTask: ctfnote.tasks.useEditTaskPopup(),
       cancelWorkingOn: ctfnote.tasks.useCancelWorkingOn(),
+      workAssignTask: ctfnote.tasks.useWorkAssignPopup(),
     };
   },
 
@@ -107,6 +108,9 @@ export default defineComponent({
     },
     onItTitle() {
       return `${this.onIt ? 'Stop' : 'Start'} working on ${this.task.title}`;
+    },
+    shouldWorkAssign() {
+      return this.me?.isManager;
     },
   },
   methods: {

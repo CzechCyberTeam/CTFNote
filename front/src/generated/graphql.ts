@@ -67,20 +67,6 @@ export type AssignedTagCondition = {
   taskId?: InputMaybe<Scalars['Int']>;
 };
 
-/** A filter to be used against `AssignedTag` object types. All fields are combined with a logical ‘and.’ */
-export type AssignedTagFilter = {
-  /** Checks for all expressions in this list. */
-  and?: InputMaybe<Array<AssignedTagFilter>>;
-  /** Negates the expression. */
-  not?: InputMaybe<AssignedTagFilter>;
-  /** Checks for any expressions in this list. */
-  or?: InputMaybe<Array<AssignedTagFilter>>;
-  /** Filter by the object’s `tagId` field. */
-  tagId?: InputMaybe<IntFilter>;
-  /** Filter by the object’s `taskId` field. */
-  taskId?: InputMaybe<IntFilter>;
-};
-
 /** An input for mutations affecting `AssignedTag` */
 export type AssignedTagInput = {
   tagId: Scalars['Int'];
@@ -120,30 +106,40 @@ export enum AssignedTagsOrderBy {
   TaskIdDesc = 'TASK_ID_DESC'
 }
 
-/** A filter to be used against Boolean fields. All fields are combined with a logical ‘and.’ */
-export type BooleanFilter = {
-  /** Not equal to the specified value, treating null like an ordinary value. */
-  distinctFrom?: InputMaybe<Scalars['Boolean']>;
-  /** Equal to the specified value. */
-  equalTo?: InputMaybe<Scalars['Boolean']>;
-  /** Greater than the specified value. */
-  greaterThan?: InputMaybe<Scalars['Boolean']>;
-  /** Greater than or equal to the specified value. */
-  greaterThanOrEqualTo?: InputMaybe<Scalars['Boolean']>;
-  /** Included in the specified list. */
-  in?: InputMaybe<Array<Scalars['Boolean']>>;
-  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
-  isNull?: InputMaybe<Scalars['Boolean']>;
-  /** Less than the specified value. */
-  lessThan?: InputMaybe<Scalars['Boolean']>;
-  /** Less than or equal to the specified value. */
-  lessThanOrEqualTo?: InputMaybe<Scalars['Boolean']>;
-  /** Equal to the specified value, treating null like an ordinary value. */
-  notDistinctFrom?: InputMaybe<Scalars['Boolean']>;
-  /** Not equal to the specified value. */
-  notEqualTo?: InputMaybe<Scalars['Boolean']>;
-  /** Not included in the specified list. */
-  notIn?: InputMaybe<Array<Scalars['Boolean']>>;
+/** All input for the `cancelWorkAssign` mutation. */
+export type CancelWorkAssignInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  profileId?: InputMaybe<Scalars['Int']>;
+  taskId?: InputMaybe<Scalars['Int']>;
+};
+
+/** The output of our `cancelWorkAssign` mutation. */
+export type CancelWorkAssignPayload = {
+  __typename?: 'CancelWorkAssignPayload';
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** Reads a single `Profile` that is related to this `WorkOnTask`. */
+  profile?: Maybe<Profile>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+  /** Reads a single `Task` that is related to this `WorkOnTask`. */
+  task?: Maybe<Task>;
+  workOnTask?: Maybe<WorkOnTask>;
+  /** An edge for our `WorkOnTask`. May be used by Relay 1. */
+  workOnTaskEdge?: Maybe<WorkOnTasksEdge>;
+};
+
+
+/** The output of our `cancelWorkAssign` mutation. */
+export type CancelWorkAssignPayloadWorkOnTaskEdgeArgs = {
+  orderBy?: InputMaybe<Array<WorkOnTasksOrderBy>>;
 };
 
 /** All input for the `cancelWorkingOn` mutation. */
@@ -481,7 +477,6 @@ export type CtfInvitationsArgs = {
   after?: InputMaybe<Scalars['Cursor']>;
   before?: InputMaybe<Scalars['Cursor']>;
   condition?: InputMaybe<InvitationCondition>;
-  filter?: InputMaybe<InvitationFilter>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -530,20 +525,10 @@ export type CtfCondition = {
 export type CtfFilter = {
   /** Checks for all expressions in this list. */
   and?: InputMaybe<Array<CtfFilter>>;
-  /** Filter by the object’s `endTime` field. */
-  endTime?: InputMaybe<DatetimeFilter>;
-  /** Filter by the object’s `granted` field. */
-  granted?: InputMaybe<BooleanFilter>;
-  /** Filter by the object’s `id` field. */
-  id?: InputMaybe<IntFilter>;
   /** Negates the expression. */
   not?: InputMaybe<CtfFilter>;
   /** Checks for any expressions in this list. */
   or?: InputMaybe<Array<CtfFilter>>;
-  /** Filter by the object’s `secretsId` field. */
-  secretsId?: InputMaybe<IntFilter>;
-  /** Filter by the object’s `startTime` field. */
-  startTime?: InputMaybe<DatetimeFilter>;
   /** Filter by the object’s `title` field. */
   title?: InputMaybe<StringFilter>;
 };
@@ -626,18 +611,6 @@ export type CtfSecretCondition = {
   id?: InputMaybe<Scalars['Int']>;
 };
 
-/** A filter to be used against `CtfSecret` object types. All fields are combined with a logical ‘and.’ */
-export type CtfSecretFilter = {
-  /** Checks for all expressions in this list. */
-  and?: InputMaybe<Array<CtfSecretFilter>>;
-  /** Filter by the object’s `id` field. */
-  id?: InputMaybe<IntFilter>;
-  /** Negates the expression. */
-  not?: InputMaybe<CtfSecretFilter>;
-  /** Checks for any expressions in this list. */
-  or?: InputMaybe<Array<CtfSecretFilter>>;
-};
-
 /** Represents an update to a `CtfSecret`. Fields that are set will be updated. */
 export type CtfSecretPatch = {
   credentials?: InputMaybe<Scalars['String']>;
@@ -712,32 +685,6 @@ export enum CtfsOrderBy {
   TitleAsc = 'TITLE_ASC',
   TitleDesc = 'TITLE_DESC'
 }
-
-/** A filter to be used against Datetime fields. All fields are combined with a logical ‘and.’ */
-export type DatetimeFilter = {
-  /** Not equal to the specified value, treating null like an ordinary value. */
-  distinctFrom?: InputMaybe<Scalars['Datetime']>;
-  /** Equal to the specified value. */
-  equalTo?: InputMaybe<Scalars['Datetime']>;
-  /** Greater than the specified value. */
-  greaterThan?: InputMaybe<Scalars['Datetime']>;
-  /** Greater than or equal to the specified value. */
-  greaterThanOrEqualTo?: InputMaybe<Scalars['Datetime']>;
-  /** Included in the specified list. */
-  in?: InputMaybe<Array<Scalars['Datetime']>>;
-  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
-  isNull?: InputMaybe<Scalars['Boolean']>;
-  /** Less than the specified value. */
-  lessThan?: InputMaybe<Scalars['Datetime']>;
-  /** Less than or equal to the specified value. */
-  lessThanOrEqualTo?: InputMaybe<Scalars['Datetime']>;
-  /** Equal to the specified value, treating null like an ordinary value. */
-  notDistinctFrom?: InputMaybe<Scalars['Datetime']>;
-  /** Not equal to the specified value. */
-  notEqualTo?: InputMaybe<Scalars['Datetime']>;
-  /** Not included in the specified list. */
-  notIn?: InputMaybe<Array<Scalars['Datetime']>>;
-};
 
 /** All input for the `deleteAssignedTagByNodeId` mutation. */
 export type DeleteAssignedTagByNodeIdInput = {
@@ -1011,32 +958,6 @@ export type ImportCtfPayload = {
   query?: Maybe<Query>;
 };
 
-/** A filter to be used against Int fields. All fields are combined with a logical ‘and.’ */
-export type IntFilter = {
-  /** Not equal to the specified value, treating null like an ordinary value. */
-  distinctFrom?: InputMaybe<Scalars['Int']>;
-  /** Equal to the specified value. */
-  equalTo?: InputMaybe<Scalars['Int']>;
-  /** Greater than the specified value. */
-  greaterThan?: InputMaybe<Scalars['Int']>;
-  /** Greater than or equal to the specified value. */
-  greaterThanOrEqualTo?: InputMaybe<Scalars['Int']>;
-  /** Included in the specified list. */
-  in?: InputMaybe<Array<Scalars['Int']>>;
-  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
-  isNull?: InputMaybe<Scalars['Boolean']>;
-  /** Less than the specified value. */
-  lessThan?: InputMaybe<Scalars['Int']>;
-  /** Less than or equal to the specified value. */
-  lessThanOrEqualTo?: InputMaybe<Scalars['Int']>;
-  /** Equal to the specified value, treating null like an ordinary value. */
-  notDistinctFrom?: InputMaybe<Scalars['Int']>;
-  /** Not equal to the specified value. */
-  notEqualTo?: InputMaybe<Scalars['Int']>;
-  /** Not included in the specified list. */
-  notIn?: InputMaybe<Array<Scalars['Int']>>;
-};
-
 export type Invitation = Node & {
   __typename?: 'Invitation';
   /** Reads a single `Ctf` that is related to this `Invitation`. */
@@ -1058,20 +979,6 @@ export type InvitationCondition = {
   ctfId?: InputMaybe<Scalars['Int']>;
   /** Checks for equality with the object’s `profileId` field. */
   profileId?: InputMaybe<Scalars['Int']>;
-};
-
-/** A filter to be used against `Invitation` object types. All fields are combined with a logical ‘and.’ */
-export type InvitationFilter = {
-  /** Checks for all expressions in this list. */
-  and?: InputMaybe<Array<InvitationFilter>>;
-  /** Filter by the object’s `ctfId` field. */
-  ctfId?: InputMaybe<IntFilter>;
-  /** Negates the expression. */
-  not?: InputMaybe<InvitationFilter>;
-  /** Checks for any expressions in this list. */
-  or?: InputMaybe<Array<InvitationFilter>>;
-  /** Filter by the object’s `profileId` field. */
-  profileId?: InputMaybe<IntFilter>;
 };
 
 /** An input for mutations affecting `Invitation` */
@@ -1154,6 +1061,7 @@ export type LoginPayload = {
 export type Mutation = {
   __typename?: 'Mutation';
   addTagsForTask?: Maybe<AddTagsForTaskPayload>;
+  cancelWorkAssign?: Maybe<CancelWorkAssignPayload>;
   cancelWorkingOn?: Maybe<CancelWorkingOnPayload>;
   changePassword?: Maybe<ChangePasswordPayload>;
   /** Creates a single `AssignedTag`. */
@@ -1230,12 +1138,20 @@ export type Mutation = {
   /** Updates a single `WorkOnTask` using its globally unique id and a patch. */
   updateWorkOnTaskByNodeId?: Maybe<UpdateWorkOnTaskPayload>;
   uploadCtfLogo: Scalars['String'];
+  workAssign?: Maybe<WorkAssignPayload>;
+  workUnassign?: Maybe<WorkUnassignPayload>;
 };
 
 
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationAddTagsForTaskArgs = {
   input: AddTagsForTaskInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationCancelWorkAssignArgs = {
+  input: CancelWorkAssignInput;
 };
 
 
@@ -1526,6 +1442,18 @@ export type MutationUploadCtfLogoArgs = {
   logo: Scalars['Upload'];
 };
 
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationWorkAssignArgs = {
+  input: WorkAssignInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationWorkUnassignArgs = {
+  input: WorkUnassignInput;
+};
+
 /** An object with a globally unique `ID`. */
 export type Node = {
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
@@ -1583,7 +1511,6 @@ export type ProfileInvitationsArgs = {
   after?: InputMaybe<Scalars['Cursor']>;
   before?: InputMaybe<Scalars['Cursor']>;
   condition?: InputMaybe<InvitationCondition>;
-  filter?: InputMaybe<InvitationFilter>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1607,7 +1534,6 @@ export type ProfileWorkOnTasksArgs = {
   after?: InputMaybe<Scalars['Cursor']>;
   before?: InputMaybe<Scalars['Cursor']>;
   condition?: InputMaybe<WorkOnTaskCondition>;
-  filter?: InputMaybe<WorkOnTaskFilter>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1652,14 +1578,10 @@ export type ProfileFilter = {
   and?: InputMaybe<Array<ProfileFilter>>;
   /** Filter by the object’s `discordId` field. */
   discordId?: InputMaybe<StringFilter>;
-  /** Filter by the object’s `id` field. */
-  id?: InputMaybe<IntFilter>;
   /** Negates the expression. */
   not?: InputMaybe<ProfileFilter>;
   /** Checks for any expressions in this list. */
   or?: InputMaybe<Array<ProfileFilter>>;
-  /** Filter by the object’s `role` field. */
-  role?: InputMaybe<RoleFilter>;
   /** Filter by the object’s `username` field. */
   username?: InputMaybe<StringFilter>;
 };
@@ -1865,7 +1787,6 @@ export type QueryAssignedTagsArgs = {
   after?: InputMaybe<Scalars['Cursor']>;
   before?: InputMaybe<Scalars['Cursor']>;
   condition?: InputMaybe<AssignedTagCondition>;
-  filter?: InputMaybe<AssignedTagFilter>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1902,7 +1823,6 @@ export type QueryCtfSecretsArgs = {
   after?: InputMaybe<Scalars['Cursor']>;
   before?: InputMaybe<Scalars['Cursor']>;
   condition?: InputMaybe<CtfSecretCondition>;
-  filter?: InputMaybe<CtfSecretFilter>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1927,7 +1847,6 @@ export type QueryCtfsArgs = {
 export type QueryGuestsArgs = {
   after?: InputMaybe<Scalars['Cursor']>;
   before?: InputMaybe<Scalars['Cursor']>;
-  filter?: InputMaybe<ProfileFilter>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1938,7 +1857,6 @@ export type QueryGuestsArgs = {
 export type QueryIncomingCtfArgs = {
   after?: InputMaybe<Scalars['Cursor']>;
   before?: InputMaybe<Scalars['Cursor']>;
-  filter?: InputMaybe<CtfFilter>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1963,7 +1881,6 @@ export type QueryInvitationsArgs = {
   after?: InputMaybe<Scalars['Cursor']>;
   before?: InputMaybe<Scalars['Cursor']>;
   condition?: InputMaybe<InvitationCondition>;
-  filter?: InputMaybe<InvitationFilter>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1981,7 +1898,6 @@ export type QueryNodeArgs = {
 export type QueryPastCtfArgs = {
   after?: InputMaybe<Scalars['Cursor']>;
   before?: InputMaybe<Scalars['Cursor']>;
-  filter?: InputMaybe<CtfFilter>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -2138,7 +2054,6 @@ export type QueryWorkOnTasksArgs = {
   after?: InputMaybe<Scalars['Cursor']>;
   before?: InputMaybe<Scalars['Cursor']>;
   condition?: InputMaybe<WorkOnTaskCondition>;
-  filter?: InputMaybe<WorkOnTaskFilter>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -2300,32 +2215,6 @@ export enum Role {
   UserMember = 'USER_MEMBER'
 }
 
-/** A filter to be used against Role fields. All fields are combined with a logical ‘and.’ */
-export type RoleFilter = {
-  /** Not equal to the specified value, treating null like an ordinary value. */
-  distinctFrom?: InputMaybe<Role>;
-  /** Equal to the specified value. */
-  equalTo?: InputMaybe<Role>;
-  /** Greater than the specified value. */
-  greaterThan?: InputMaybe<Role>;
-  /** Greater than or equal to the specified value. */
-  greaterThanOrEqualTo?: InputMaybe<Role>;
-  /** Included in the specified list. */
-  in?: InputMaybe<Array<Role>>;
-  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
-  isNull?: InputMaybe<Scalars['Boolean']>;
-  /** Less than the specified value. */
-  lessThan?: InputMaybe<Role>;
-  /** Less than or equal to the specified value. */
-  lessThanOrEqualTo?: InputMaybe<Role>;
-  /** Equal to the specified value, treating null like an ordinary value. */
-  notDistinctFrom?: InputMaybe<Role>;
-  /** Not equal to the specified value. */
-  notEqualTo?: InputMaybe<Role>;
-  /** Not included in the specified list. */
-  notIn?: InputMaybe<Array<Role>>;
-};
-
 /** All input for the `setDiscordEventLink` mutation. */
 export type SetDiscordEventLinkInput = {
   /**
@@ -2474,80 +2363,8 @@ export type StopWorkingOnPayloadWorkOnTaskEdgeArgs = {
 
 /** A filter to be used against String fields. All fields are combined with a logical ‘and.’ */
 export type StringFilter = {
-  /** Not equal to the specified value, treating null like an ordinary value. */
-  distinctFrom?: InputMaybe<Scalars['String']>;
-  /** Not equal to the specified value, treating null like an ordinary value (case-insensitive). */
-  distinctFromInsensitive?: InputMaybe<Scalars['String']>;
-  /** Ends with the specified string (case-sensitive). */
-  endsWith?: InputMaybe<Scalars['String']>;
-  /** Ends with the specified string (case-insensitive). */
-  endsWithInsensitive?: InputMaybe<Scalars['String']>;
-  /** Equal to the specified value. */
-  equalTo?: InputMaybe<Scalars['String']>;
-  /** Equal to the specified value (case-insensitive). */
-  equalToInsensitive?: InputMaybe<Scalars['String']>;
-  /** Greater than the specified value. */
-  greaterThan?: InputMaybe<Scalars['String']>;
-  /** Greater than the specified value (case-insensitive). */
-  greaterThanInsensitive?: InputMaybe<Scalars['String']>;
-  /** Greater than or equal to the specified value. */
-  greaterThanOrEqualTo?: InputMaybe<Scalars['String']>;
-  /** Greater than or equal to the specified value (case-insensitive). */
-  greaterThanOrEqualToInsensitive?: InputMaybe<Scalars['String']>;
-  /** Included in the specified list. */
-  in?: InputMaybe<Array<Scalars['String']>>;
-  /** Included in the specified list (case-insensitive). */
-  inInsensitive?: InputMaybe<Array<Scalars['String']>>;
-  /** Contains the specified string (case-sensitive). */
-  includes?: InputMaybe<Scalars['String']>;
   /** Contains the specified string (case-insensitive). */
   includesInsensitive?: InputMaybe<Scalars['String']>;
-  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
-  isNull?: InputMaybe<Scalars['Boolean']>;
-  /** Less than the specified value. */
-  lessThan?: InputMaybe<Scalars['String']>;
-  /** Less than the specified value (case-insensitive). */
-  lessThanInsensitive?: InputMaybe<Scalars['String']>;
-  /** Less than or equal to the specified value. */
-  lessThanOrEqualTo?: InputMaybe<Scalars['String']>;
-  /** Less than or equal to the specified value (case-insensitive). */
-  lessThanOrEqualToInsensitive?: InputMaybe<Scalars['String']>;
-  /** Matches the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
-  like?: InputMaybe<Scalars['String']>;
-  /** Matches the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
-  likeInsensitive?: InputMaybe<Scalars['String']>;
-  /** Equal to the specified value, treating null like an ordinary value. */
-  notDistinctFrom?: InputMaybe<Scalars['String']>;
-  /** Equal to the specified value, treating null like an ordinary value (case-insensitive). */
-  notDistinctFromInsensitive?: InputMaybe<Scalars['String']>;
-  /** Does not end with the specified string (case-sensitive). */
-  notEndsWith?: InputMaybe<Scalars['String']>;
-  /** Does not end with the specified string (case-insensitive). */
-  notEndsWithInsensitive?: InputMaybe<Scalars['String']>;
-  /** Not equal to the specified value. */
-  notEqualTo?: InputMaybe<Scalars['String']>;
-  /** Not equal to the specified value (case-insensitive). */
-  notEqualToInsensitive?: InputMaybe<Scalars['String']>;
-  /** Not included in the specified list. */
-  notIn?: InputMaybe<Array<Scalars['String']>>;
-  /** Not included in the specified list (case-insensitive). */
-  notInInsensitive?: InputMaybe<Array<Scalars['String']>>;
-  /** Does not contain the specified string (case-sensitive). */
-  notIncludes?: InputMaybe<Scalars['String']>;
-  /** Does not contain the specified string (case-insensitive). */
-  notIncludesInsensitive?: InputMaybe<Scalars['String']>;
-  /** Does not match the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
-  notLike?: InputMaybe<Scalars['String']>;
-  /** Does not match the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
-  notLikeInsensitive?: InputMaybe<Scalars['String']>;
-  /** Does not start with the specified string (case-sensitive). */
-  notStartsWith?: InputMaybe<Scalars['String']>;
-  /** Does not start with the specified string (case-insensitive). */
-  notStartsWithInsensitive?: InputMaybe<Scalars['String']>;
-  /** Starts with the specified string (case-sensitive). */
-  startsWith?: InputMaybe<Scalars['String']>;
-  /** Starts with the specified string (case-insensitive). */
-  startsWithInsensitive?: InputMaybe<Scalars['String']>;
 };
 
 /** The root subscription type: contains realtime events you can subscribe to with the `subscription` operation. */
@@ -2582,7 +2399,6 @@ export type TagAssignedTagsArgs = {
   after?: InputMaybe<Scalars['Cursor']>;
   before?: InputMaybe<Scalars['Cursor']>;
   condition?: InputMaybe<AssignedTagCondition>;
-  filter?: InputMaybe<AssignedTagFilter>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -2613,8 +2429,6 @@ export type TagCondition = {
 export type TagFilter = {
   /** Checks for all expressions in this list. */
   and?: InputMaybe<Array<TagFilter>>;
-  /** Filter by the object’s `id` field. */
-  id?: InputMaybe<IntFilter>;
   /** Negates the expression. */
   not?: InputMaybe<TagFilter>;
   /** Checks for any expressions in this list. */
@@ -2712,7 +2526,6 @@ export type TaskAssignedTagsArgs = {
   after?: InputMaybe<Scalars['Cursor']>;
   before?: InputMaybe<Scalars['Cursor']>;
   condition?: InputMaybe<AssignedTagCondition>;
-  filter?: InputMaybe<AssignedTagFilter>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -2748,7 +2561,6 @@ export type TaskWorkOnTasksArgs = {
   after?: InputMaybe<Scalars['Cursor']>;
   before?: InputMaybe<Scalars['Cursor']>;
   condition?: InputMaybe<WorkOnTaskCondition>;
-  filter?: InputMaybe<WorkOnTaskFilter>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -2769,16 +2581,10 @@ export type TaskCondition = {
 export type TaskFilter = {
   /** Checks for all expressions in this list. */
   and?: InputMaybe<Array<TaskFilter>>;
-  /** Filter by the object’s `ctfId` field. */
-  ctfId?: InputMaybe<IntFilter>;
-  /** Filter by the object’s `id` field. */
-  id?: InputMaybe<IntFilter>;
   /** Negates the expression. */
   not?: InputMaybe<TaskFilter>;
   /** Checks for any expressions in this list. */
   or?: InputMaybe<Array<TaskFilter>>;
-  /** Filter by the object’s `solved` field. */
-  solved?: InputMaybe<BooleanFilter>;
   /** Filter by the object’s `title` field. */
   title?: InputMaybe<StringFilter>;
 };
@@ -3261,6 +3067,42 @@ export enum UsersOrderBy {
   Natural = 'NATURAL'
 }
 
+/** All input for the `workAssign` mutation. */
+export type WorkAssignInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  profileId?: InputMaybe<Scalars['Int']>;
+  taskId?: InputMaybe<Scalars['Int']>;
+};
+
+/** The output of our `workAssign` mutation. */
+export type WorkAssignPayload = {
+  __typename?: 'WorkAssignPayload';
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** Reads a single `Profile` that is related to this `WorkOnTask`. */
+  profile?: Maybe<Profile>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+  /** Reads a single `Task` that is related to this `WorkOnTask`. */
+  task?: Maybe<Task>;
+  workOnTask?: Maybe<WorkOnTask>;
+  /** An edge for our `WorkOnTask`. May be used by Relay 1. */
+  workOnTaskEdge?: Maybe<WorkOnTasksEdge>;
+};
+
+
+/** The output of our `workAssign` mutation. */
+export type WorkAssignPayloadWorkOnTaskEdgeArgs = {
+  orderBy?: InputMaybe<Array<WorkOnTasksOrderBy>>;
+};
+
 export type WorkOnTask = Node & {
   __typename?: 'WorkOnTask';
   active: Scalars['Boolean'];
@@ -3283,20 +3125,6 @@ export type WorkOnTaskCondition = {
   profileId?: InputMaybe<Scalars['Int']>;
   /** Checks for equality with the object’s `taskId` field. */
   taskId?: InputMaybe<Scalars['Int']>;
-};
-
-/** A filter to be used against `WorkOnTask` object types. All fields are combined with a logical ‘and.’ */
-export type WorkOnTaskFilter = {
-  /** Checks for all expressions in this list. */
-  and?: InputMaybe<Array<WorkOnTaskFilter>>;
-  /** Negates the expression. */
-  not?: InputMaybe<WorkOnTaskFilter>;
-  /** Checks for any expressions in this list. */
-  or?: InputMaybe<Array<WorkOnTaskFilter>>;
-  /** Filter by the object’s `profileId` field. */
-  profileId?: InputMaybe<IntFilter>;
-  /** Filter by the object’s `taskId` field. */
-  taskId?: InputMaybe<IntFilter>;
 };
 
 /** An input for mutations affecting `WorkOnTask` */
@@ -3345,6 +3173,42 @@ export enum WorkOnTasksOrderBy {
   TaskIdAsc = 'TASK_ID_ASC',
   TaskIdDesc = 'TASK_ID_DESC'
 }
+
+/** All input for the `workUnassign` mutation. */
+export type WorkUnassignInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  profileId?: InputMaybe<Scalars['Int']>;
+  taskId?: InputMaybe<Scalars['Int']>;
+};
+
+/** The output of our `workUnassign` mutation. */
+export type WorkUnassignPayload = {
+  __typename?: 'WorkUnassignPayload';
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** Reads a single `Profile` that is related to this `WorkOnTask`. */
+  profile?: Maybe<Profile>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+  /** Reads a single `Task` that is related to this `WorkOnTask`. */
+  task?: Maybe<Task>;
+  workOnTask?: Maybe<WorkOnTask>;
+  /** An edge for our `WorkOnTask`. May be used by Relay 1. */
+  workOnTaskEdge?: Maybe<WorkOnTasksEdge>;
+};
+
+
+/** The output of our `workUnassign` mutation. */
+export type WorkUnassignPayloadWorkOnTaskEdgeArgs = {
+  orderBy?: InputMaybe<Array<WorkOnTasksOrderBy>>;
+};
 
 export type UserFragment = { __typename?: 'User', nodeId?: string | null, login?: string | null, role?: Role | null, id?: number | null, profile?: { __typename?: 'Profile', id: number, username: string, lastactive: string, color?: string | null, description: string, role?: Role | null, discordId?: string | null, nodeId: string } | null };
 
@@ -3798,6 +3662,30 @@ export type CancelWorkingOnMutationVariables = Exact<{
 
 
 export type CancelWorkingOnMutation = { __typename?: 'Mutation', cancelWorkingOn?: { __typename?: 'CancelWorkingOnPayload', task?: { __typename?: 'Task', nodeId: string, id: number, title: string, ctfId: number, padUrl: string, description: string, flag: string, solved?: boolean | null, assignedTags: { __typename?: 'AssignedTagsConnection', nodes: Array<{ __typename?: 'AssignedTag', nodeId: string, taskId: number, tagId: number, tag?: { __typename?: 'Tag', nodeId: string, id: number, tag: string } | null }> }, workOnTasks: { __typename?: 'WorkOnTasksConnection', nodes: Array<{ __typename?: 'WorkOnTask', nodeId: string, profileId: number, active: boolean, taskId: number }> } } | null } | null };
+
+export type WorkAssignMutationVariables = Exact<{
+  taskId: Scalars['Int'];
+  profileId: Scalars['Int'];
+}>;
+
+
+export type WorkAssignMutation = { __typename?: 'Mutation', workAssign?: { __typename?: 'WorkAssignPayload', task?: { __typename?: 'Task', nodeId: string, id: number, title: string, ctfId: number, padUrl: string, description: string, flag: string, solved?: boolean | null, assignedTags: { __typename?: 'AssignedTagsConnection', nodes: Array<{ __typename?: 'AssignedTag', nodeId: string, taskId: number, tagId: number, tag?: { __typename?: 'Tag', nodeId: string, id: number, tag: string } | null }> }, workOnTasks: { __typename?: 'WorkOnTasksConnection', nodes: Array<{ __typename?: 'WorkOnTask', nodeId: string, profileId: number, active: boolean, taskId: number }> } } | null } | null };
+
+export type WorkUnassignMutationVariables = Exact<{
+  taskId: Scalars['Int'];
+  profileId: Scalars['Int'];
+}>;
+
+
+export type WorkUnassignMutation = { __typename?: 'Mutation', workUnassign?: { __typename?: 'WorkUnassignPayload', task?: { __typename?: 'Task', nodeId: string, id: number, title: string, ctfId: number, padUrl: string, description: string, flag: string, solved?: boolean | null, assignedTags: { __typename?: 'AssignedTagsConnection', nodes: Array<{ __typename?: 'AssignedTag', nodeId: string, taskId: number, tagId: number, tag?: { __typename?: 'Tag', nodeId: string, id: number, tag: string } | null }> }, workOnTasks: { __typename?: 'WorkOnTasksConnection', nodes: Array<{ __typename?: 'WorkOnTask', nodeId: string, profileId: number, active: boolean, taskId: number }> } } | null } | null };
+
+export type CancelWorkAssignMutationVariables = Exact<{
+  taskId: Scalars['Int'];
+  profileId: Scalars['Int'];
+}>;
+
+
+export type CancelWorkAssignMutation = { __typename?: 'Mutation', cancelWorkAssign?: { __typename?: 'CancelWorkAssignPayload', task?: { __typename?: 'Task', nodeId: string, id: number, title: string, ctfId: number, padUrl: string, description: string, flag: string, solved?: boolean | null, assignedTags: { __typename?: 'AssignedTagsConnection', nodes: Array<{ __typename?: 'AssignedTag', nodeId: string, taskId: number, tagId: number, tag?: { __typename?: 'Tag', nodeId: string, id: number, tag: string } | null }> }, workOnTasks: { __typename?: 'WorkOnTasksConnection', nodes: Array<{ __typename?: 'WorkOnTask', nodeId: string, profileId: number, active: boolean, taskId: number }> } } | null } | null };
 
 export type SubscribeToTaskSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
@@ -5904,6 +5792,102 @@ export function useCancelWorkingOnMutation(options: VueApolloComposable.UseMutat
   return VueApolloComposable.useMutation<CancelWorkingOnMutation, CancelWorkingOnMutationVariables>(CancelWorkingOnDocument, options);
 }
 export type CancelWorkingOnMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<CancelWorkingOnMutation, CancelWorkingOnMutationVariables>;
+export const WorkAssignDocument = gql`
+    mutation workAssign($taskId: Int!, $profileId: Int!) {
+  workAssign(input: {taskId: $taskId, profileId: $profileId}) {
+    task {
+      ...TaskFragment
+    }
+  }
+}
+    ${TaskFragmentDoc}`;
+
+/**
+ * __useWorkAssignMutation__
+ *
+ * To run a mutation, you first call `useWorkAssignMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useWorkAssignMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useWorkAssignMutation({
+ *   variables: {
+ *     taskId: // value for 'taskId'
+ *     profileId: // value for 'profileId'
+ *   },
+ * });
+ */
+export function useWorkAssignMutation(options: VueApolloComposable.UseMutationOptions<WorkAssignMutation, WorkAssignMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<WorkAssignMutation, WorkAssignMutationVariables>> = {}) {
+  return VueApolloComposable.useMutation<WorkAssignMutation, WorkAssignMutationVariables>(WorkAssignDocument, options);
+}
+export type WorkAssignMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<WorkAssignMutation, WorkAssignMutationVariables>;
+export const WorkUnassignDocument = gql`
+    mutation workUnassign($taskId: Int!, $profileId: Int!) {
+  workUnassign(input: {taskId: $taskId, profileId: $profileId}) {
+    task {
+      ...TaskFragment
+    }
+  }
+}
+    ${TaskFragmentDoc}`;
+
+/**
+ * __useWorkUnassignMutation__
+ *
+ * To run a mutation, you first call `useWorkUnassignMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useWorkUnassignMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useWorkUnassignMutation({
+ *   variables: {
+ *     taskId: // value for 'taskId'
+ *     profileId: // value for 'profileId'
+ *   },
+ * });
+ */
+export function useWorkUnassignMutation(options: VueApolloComposable.UseMutationOptions<WorkUnassignMutation, WorkUnassignMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<WorkUnassignMutation, WorkUnassignMutationVariables>> = {}) {
+  return VueApolloComposable.useMutation<WorkUnassignMutation, WorkUnassignMutationVariables>(WorkUnassignDocument, options);
+}
+export type WorkUnassignMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<WorkUnassignMutation, WorkUnassignMutationVariables>;
+export const CancelWorkAssignDocument = gql`
+    mutation cancelWorkAssign($taskId: Int!, $profileId: Int!) {
+  cancelWorkAssign(input: {taskId: $taskId, profileId: $profileId}) {
+    task {
+      ...TaskFragment
+    }
+  }
+}
+    ${TaskFragmentDoc}`;
+
+/**
+ * __useCancelWorkAssignMutation__
+ *
+ * To run a mutation, you first call `useCancelWorkAssignMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useCancelWorkAssignMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useCancelWorkAssignMutation({
+ *   variables: {
+ *     taskId: // value for 'taskId'
+ *     profileId: // value for 'profileId'
+ *   },
+ * });
+ */
+export function useCancelWorkAssignMutation(options: VueApolloComposable.UseMutationOptions<CancelWorkAssignMutation, CancelWorkAssignMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<CancelWorkAssignMutation, CancelWorkAssignMutationVariables>> = {}) {
+  return VueApolloComposable.useMutation<CancelWorkAssignMutation, CancelWorkAssignMutationVariables>(CancelWorkAssignDocument, options);
+}
+export type CancelWorkAssignMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<CancelWorkAssignMutation, CancelWorkAssignMutationVariables>;
 export const SubscribeToTaskDocument = gql`
     subscription subscribeToTask {
   listen(topic: "update:tasks") {
@@ -6745,6 +6729,33 @@ export const StopWorkingOn = gql`
 export const CancelWorkingOn = gql`
     mutation cancelWorkingOn($taskId: Int!) {
   cancelWorkingOn(input: {taskId: $taskId}) {
+    task {
+      ...TaskFragment
+    }
+  }
+}
+    ${TaskFragment}`;
+export const WorkAssign = gql`
+    mutation workAssign($taskId: Int!, $profileId: Int!) {
+  workAssign(input: {taskId: $taskId, profileId: $profileId}) {
+    task {
+      ...TaskFragment
+    }
+  }
+}
+    ${TaskFragment}`;
+export const WorkUnassign = gql`
+    mutation workUnassign($taskId: Int!, $profileId: Int!) {
+  workUnassign(input: {taskId: $taskId, profileId: $profileId}) {
+    task {
+      ...TaskFragment
+    }
+  }
+}
+    ${TaskFragment}`;
+export const CancelWorkAssign = gql`
+    mutation cancelWorkAssign($taskId: Int!, $profileId: Int!) {
+  cancelWorkAssign(input: {taskId: $taskId, profileId: $profileId}) {
     task {
       ...TaskFragment
     }

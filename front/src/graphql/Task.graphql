@@ -116,6 +116,30 @@ mutation cancelWorkingOn($taskId: Int!) {
   }
 }
 
+mutation workAssign($taskId: Int!, $profileId: Int!) {
+  workAssign(input: { taskId: $taskId, profileId: $profileId }) {
+    task {
+      ...TaskFragment
+    }
+  }
+}
+
+mutation workUnassign($taskId: Int!, $profileId: Int!) {
+  workUnassign(input: { taskId: $taskId, profileId: $profileId }) {
+    task {
+      ...TaskFragment
+    }
+  }
+}
+
+mutation cancelWorkAssign($taskId: Int!, $profileId: Int!) {
+  cancelWorkAssign(input: { taskId: $taskId, profileId: $profileId }) {
+    task {
+      ...TaskFragment
+    }
+  }
+}
+
 # Subscriptions
 subscription subscribeToTask {
   listen(topic: "update:tasks") {
